@@ -1,0 +1,31 @@
+{
+  "id": "05ab1435-d0fe-4ad3-a732-57b6368644ba",
+  "name": "ADA_Femmes_illustres",
+  "description": null,
+  "default_flow": "Default",
+  "flows": [
+    {
+      "name": "Default",
+      "description": "Simple barebones flow. Code your own chatbot from this template!",
+      "commands": []
+    }
+  ],
+  "files": [],
+  "functions": [
+    {
+      "name": "femmes_illustres",
+      "description": null,
+      "args": [
+        "category=",
+        "district="
+      ],
+      "import_url": null,
+      "runtime": "nodejs12.x",
+      "handler": "index.handler",
+      "environment": {},
+      "app_id": null,
+      "version": null
+    }
+  ],
+  "apps": []
+}

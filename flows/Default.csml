@@ -1,0 +1,121 @@
+// Ceci est un commentaire, ils commencent tous par //
+// Le CSML ignore les commentaires, ils sont utiles pour les développeurs :3
+
+// Un chatbot commence toujours par l'étape "start" ci-dessous
+start:
+  // On va saluer l'utilisateur avec la commande `say`
+  goto affichage
+  say "Salut!"
+  say Typing(3000)
+  say "Je suis ton guide parisien, je suis incollable quand il s'agit de trouver les femmes illustres parisiennes! 🤙"
+  // On peut poser une question à l'utilisateur et donner des choix de boutons
+  say Question("Tu es prêt.e ?",
+    buttons=[
+      // Vous remarquerez qu'on utilise le mot clé "as", il permet au csml de se souvenir de ce bouton
+      // pour s'en servir plus tard (dans le if)
+      Button("Oui let's gooo! 🔥") as btnOui,
+      Button("Pas tout à fait 😕") as btnNon
+    ])
+  // "hold" indique au chatbot qu'il doit attendre une réponse de l'utilisateur (une phrase ou un click)
+	hold
+  // La réponse de l'utilisateur va arriver dans la variable `event`
+  // Dans le cas présent on va voir ce que contient cette variable en demandant au csml si event "match" le bouton Oui
+  if (event match btnOui) {
+    say "Super allons-y!"
+  } else {
+    say "Pas de soucis, je me tiens à ta disposition!"
+    goto end
+  }
+  
+  
+// ############################################################
+// À toi de jouer maintenant, il va falloir remplir les trous !
+// ############################################################
+// Exercice 0 : Efface la ligne ci-dessous (ligne 35) pour commencer le workshop 
+/*
+
+// 1 - Écris la question que va poser le chatbot à l'utilisateur
+  say Question("????",
+	buttons=[
+    Button("77 Illustres Parisiennes"),
+    Button("Sportives"),
+    Button("Cheffes"),
+    Button("Comédiennes"),
+    Button("Artistes"),
+    Button("Scientifiques"),
+    Button("Politiques"),
+    Button("Femmes de lettres")
+		])
+  // 2 - Indique au chatbot d'attendre la réponse de l'utilisateur ici
+  ????
+  // 3 - Indique au chatbot qu'il doit se souvenir de la réponse de l'utilisateur
+  // en la mettant dans une variable (une boite) qu'on appelera  "le_genre"
+  ???? categorie = event
+  // 4 - Le chatboit doit se rendre à l'étape arrondissement
+  ???? arrondissemnt
+  
+arrondissemnt:
+  // 5 - Nous voulons faire sembalnt d'écrire pendant 3 secondes
+  // 6 - Il manque le mot clé pour poser une question
+  say ????("Quel arrondissement souhaites-tu explorer ?",
+	buttons=[
+		Button("Tous 🧐")
+		])
+  hold
+  // 7 - Comment se souvenir de la saisie de l'utilisateur dans la variable `arrondissement` ?
+  remember ???? ???? ????
+  
+  // 8 - Indique au chatbot qu'il doit se rendre à l'étape quel_tri
+  ???? ????
+
+// 9 - Il manque le nom de l'étape ci-dessous
+????:
+  if (arrondissement.is_number() == false) remember arrondissement = "any"
+  do res = App("femmes_illustres", category=categorie, district=arrondissement)
+  do cards = []
+  if (res.length() == 0) {
+    say "Je ne connais pas de femme illustre {{categorie}} dans cette zone, désolé 😔"
+  }
+  foreach (val, index) in res {
+    do newCard = Card(
+      title=val.name,
+      subtitle=val.address,
+      image_url=val.thumb_url,
+      buttons=[Button("En savoir plus", payload=val.objectid.to_string())]
+    )
+    if (index < 6) do cards.push(newCard)
+  }
+  say Carousel(
+    cards = cards
+  )
+  goto moreInfos
+
+moreInfos:
+  hold
+  if (event.is_number() == false) goto start
+  do f = App("femmes_illustres", objectid=event)
+  if (!f) goto start
+  say Image(f.thumb_url)
+  say Typing(4000)
+  say "{{f.name}} - {{f.address}}"
+  say Typing(4000)
+  if (f.desc1) {
+  say Typing(4000)
+    say "{{f.desc1}}"
+  }
+  if (f.desc2) {
+  say Typing(4000)
+    say "{{f.desc2}}"
+  }
+  if (f.desc3) {
+  say Typing(4000)
+    say "{{f.desc3}}"
+  }
+  if (f.desc4) {
+  say Typing(4000)
+    say "{{f.desc4}}"
+  }
+  if (f.geo_shape)
+    say Url("https://www.google.fr/maps/search/{{f.geo_shape.coordinates[1]}},{{f.geo_shape.coordinates[0]}}", text="Explorer dans Google Maps", hide_url=true)
+  goto moreInfos
+
