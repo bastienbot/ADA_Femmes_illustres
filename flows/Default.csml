@@ -4,7 +4,6 @@
 // Un chatbot commence toujours par l'étape "start" ci-dessous
 start:
   // On va saluer l'utilisateur avec la commande `say`
-  goto affichage
   say "Salut!"
   say Typing(3000)
   say "Je suis ton guide parisien, je suis incollable quand il s'agit de trouver les femmes illustres parisiennes! 🤙"
