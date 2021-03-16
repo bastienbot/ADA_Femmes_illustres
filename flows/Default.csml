@@ -48,9 +48,9 @@ start:
   // 2 - Indique au chatbot d'attendre la réponse de l'utilisateur ici
   ????
   // 3 - Indique au chatbot qu'il doit se souvenir de la réponse de l'utilisateur
-  // en la mettant dans une variable (une boite) qu'on appelera  "le_genre"
+  // en la mettant dans une variable (une boite) qu'on appelera  "category"
   ???? categorie = event
-  // 4 - Le chatboit doit se rendre à l'étape arrondissement
+  // 4 - Le chatbot doit se rendre à l'étape arrondissement
   ???? arrondissemnt
   
 arrondissemnt:
@@ -64,7 +64,7 @@ arrondissemnt:
   // 7 - Comment se souvenir de la saisie de l'utilisateur dans la variable `arrondissement` ?
   remember ???? ???? ????
   
-  // 8 - Indique au chatbot qu'il doit se rendre à l'étape quel_tri
+  // 8 - Indique au chatbot qu'il doit se rendre à l'étape `affichage`
   ???? ????
 
 // 9 - Il manque le nom de l'étape ci-dessous
